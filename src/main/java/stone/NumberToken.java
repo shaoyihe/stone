@@ -27,7 +27,7 @@ public class NumberToken extends Token {
     @Override
     public String toString() {
         return "NumberToken{" +
-                "number=" + number + super.toString() +
+                "number=" + number  +" "+ super.toString() +
                 '}';
     }
 }

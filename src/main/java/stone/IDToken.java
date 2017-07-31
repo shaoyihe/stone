@@ -27,7 +27,7 @@ public class IDToken extends Token {
     @Override
     public String toString() {
         return "IDToken{" +
-                "str=" + text + super.toString() +
+                "str=" + text +" "+ super.toString() +
                 '}';
     }
 }

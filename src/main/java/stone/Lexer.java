@@ -63,33 +63,32 @@ public class Lexer extends ALog {
                 int lineNum = lineNumberReader.getLineNumber();
                 Matcher matcher = TOKEN_REGEX.matcher(line);
                 while (matcher.find()) {
-                    int column = matcher.start();
                     String comment = matcher.group(2);
                     if (comment != null) {
-                        log.debug(lineNum + " " + column + " " + comment);
+                        log.debug(lineNum + " " + matcher.start() + " " + comment);
                         continue;
                     }
                     Token token;
                     String number = matcher.group(3);
                     if (number != null) {
-                        token = new NumberToken(Long.valueOf(number), column, lineNum);
+                        token = new NumberToken(Long.valueOf(number), matcher.start(), lineNum);
                     } else {
                         String str = matcher.group(4);
                         if (str != null) {
-                            token = new StrToken(str, column, lineNum);
+                            token = new StrToken(str, matcher.start(), lineNum);
                         } else {
                             String id = matcher.group(5);
                             if (id != null) {
-                                token = new IDToken(id, column, lineNum);
+                                token = new IDToken(id, matcher.start(), lineNum);
                             } else {
-                                throw new ParseException("column[" + column + "],lineNum[" + lineNum + "]");
+                                throw new ParseException("column[" + matcher.start() + "],lineNum[" + lineNum + "]");
                             }
                         }
                     }
                     if (token.isNumber()) {
-                        log.debug(lineNum + " " + column + " " + token.getNumber());
+                        log.debug(lineNum + " " + matcher.start() + " " + token.getNumber());
                     } else {
-                        log.debug(lineNum + " " + column + " " + token.getText());
+                        log.debug(lineNum + " " + matcher.start() + " " + token.getText());
                     }
                     tokens.add(token);
                 }
