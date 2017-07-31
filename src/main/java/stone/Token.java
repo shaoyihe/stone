@@ -1,7 +1,5 @@
 package stone;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * token词
  * on 2017/7/31.
@@ -19,11 +17,11 @@ public abstract class Token {
     }
 
     public long getNumber() {
-        throw new NotImplementedException();
+         throw new UnsupportedOperationException();
     }
 
     public String getText() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public boolean isNumber() {
