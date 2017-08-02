@@ -17,7 +17,7 @@ public abstract class Token {
     }
 
     public long getNumber() {
-         throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public String getText() {
@@ -39,8 +39,8 @@ public abstract class Token {
     @Override
     public String toString() {
         return "Token{" +
-                "columnNum=" + columnNum +
-                ", lineNum=" + lineNum +
+                "lineNum=" + lineNum +
+                ", columnNum=" + columnNum +
                 '}';
     }
 }

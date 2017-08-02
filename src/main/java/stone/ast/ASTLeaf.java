@@ -48,5 +48,4 @@ public abstract class ASTLeaf extends ASTree {
         return token;
     }
 
-
 }

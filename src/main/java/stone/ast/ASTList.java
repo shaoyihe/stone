@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 非叶子节点描述符
  * Created by heshaoyi on 8/2/17.
  */
 public abstract class ASTList extends ASTree {
