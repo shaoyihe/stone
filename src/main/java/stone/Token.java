@@ -5,8 +5,10 @@ package stone;
  * on 2017/7/31.
  */
 public abstract class Token {
-    public static Token END = new Token(-1, -1) {
+    public static Token EOF = new Token(-1, -1) {
     };
+
+    public static final String EOL = "\\n";
 
     protected int lineNum;
     protected int columnNum;
@@ -28,11 +30,11 @@ public abstract class Token {
         return false;
     }
 
-    public boolean isIdentity() {
+    public boolean isIdentifier() {
         return false;
     }
 
-    public boolean isStr() {
+    public boolean isString() {
         return false;
     }
 

@@ -7,7 +7,7 @@ import java.util.Iterator;
  * Created by heshaoyi on 8/2/17.
  */
 public abstract class ASTree implements Iterable<ASTree> {
-    public abstract int numberOfChild();
+    public abstract int numChildren();
 
     public abstract ASTree child(int pos);
 

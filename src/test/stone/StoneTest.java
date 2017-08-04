@@ -11,7 +11,7 @@ public class StoneTest {
     public void tokenReadr() throws Exception {
         Lexer lexer = new Lexer((StoneTest.class.getResource("test.txt").getFile()));
         Token token;
-        while ((token=lexer.read()) !=Token.END){
+        while ((token=lexer.read()) !=Token.EOF){
             System.err.println(token);
         }
     }

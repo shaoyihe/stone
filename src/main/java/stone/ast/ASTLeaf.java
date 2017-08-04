@@ -10,7 +10,7 @@ import java.util.List;
  * 抽象语法树叶子节点
  * Created by heshaoyi on 8/2/17.
  */
-public abstract class ASTLeaf extends ASTree {
+public class ASTLeaf extends ASTree {
     private static List<ASTree> EMPTY = Collections.emptyList();
 
     private Token token;
@@ -20,7 +20,7 @@ public abstract class ASTLeaf extends ASTree {
     }
 
     @Override
-    public int numberOfChild() {
+    public int numChildren() {
         return 0;
     }
 

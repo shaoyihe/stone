@@ -14,7 +14,7 @@ public class StrToken extends Token {
     }
 
     @Override
-    public boolean isStr() {
+    public boolean isString() {
         return true;
     }
 

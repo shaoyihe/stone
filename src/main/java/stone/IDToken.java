@@ -15,7 +15,7 @@ public class IDToken extends Token {
 
 
     @Override
-    public boolean isIdentity() {
+    public boolean isIdentifier() {
         return true;
     }
 

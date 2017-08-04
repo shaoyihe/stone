@@ -20,7 +20,7 @@ public class Lexer extends ALog {
      * "[^"]*" : 字符串
      * \w[\w\d]*|\p{Punct} : 变量|操作符
      */
-    public static final Pattern TOKEN_REGEX = Pattern.compile("\\s*((//.*)|(\\d+)|(\"[^\"]*\")|(\\w[\\w\\d]*|\\p{Punct}))");
+    public static final Pattern TOKEN_REGEX = Pattern.compile("\\s*((//.*)|(\\d+)|(\"[^\"]*\")|(\\w[\\w\\d]*|==|&&|\\|\\||\\p{Punct}))");
 
 
     private final List<Token> tokens;
@@ -38,7 +38,7 @@ public class Lexer extends ALog {
 
     public Token read() {
         Token token = readOn(0);
-        if (token != Token.END) {
+        if (token != Token.EOF) {
             tokens.remove(0);
         }
         return token;
@@ -51,7 +51,7 @@ public class Lexer extends ALog {
     public Token readOn(int pos) {
         while (tokens.size() <= pos) {
             if (end) {
-                return Token.END;
+                return Token.EOF;
             }
             try {
                 String line = lineNumberReader.readLine();
@@ -81,7 +81,7 @@ public class Lexer extends ALog {
                             if (id != null) {
                                 token = new IDToken(id, matcher.start(), lineNum);
                             } else {
-                                throw new ParseException("column[" + matcher.start() + "],lineNum[" + lineNum + "]");
+                                throw new ParseException("error");
                             }
                         }
                     }
@@ -94,7 +94,7 @@ public class Lexer extends ALog {
                 }
 
             } catch (Exception e) {
-                throw new ParseException("", e);
+                throw new ParseException(e.toString());
             }
 
         }
