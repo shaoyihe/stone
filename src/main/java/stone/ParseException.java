@@ -5,7 +5,7 @@ package stone;
  */
 public class ParseException extends RuntimeException {
     public ParseException(String s, Token token) {
-        super(token.toString());
+        super(s + "" + token.toString());
     }
 
     public ParseException(Token t) {
