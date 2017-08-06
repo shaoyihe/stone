@@ -9,7 +9,7 @@ public class LexTest {
 
     @Test
     public void tokenReadr() throws Exception {
-        Lexer lexer = new Lexer((LexTest.class.getResource("test.txt").getFile()));
+        Lexer lexer = new Lexer((LexTest.class.getResource("closure.txt").getFile()));
         Token token;
         while ((token=lexer.read()) !=Token.EOF){
             System.err.println(token);

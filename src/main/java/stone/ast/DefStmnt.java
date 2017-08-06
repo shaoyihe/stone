@@ -17,7 +17,7 @@ public class DefStmnt extends ASTList {
     }
 
     public Parameters params() {
-        return (Parameters) ((ASTree) child(1)).child(0);
+        return (Parameters) child(1);
     }
 
     public BlockStmnt body() {

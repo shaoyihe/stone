@@ -28,7 +28,7 @@ public class BasicParser {
             .sep("{").option(statement0)
             .repeat(rule().sep(";", Token.EOL).option(statement0))
             .sep("}");
-    Parser simple = rule(PrimaryExpr.class).ast(expr);
+    protected Parser simple = rule(PrimaryExpr.class).ast(expr);
     Parser statement = statement0.or(
             rule(IfStmnt.class).sep("if").ast(expr).ast(block)
                     .option(rule().sep("else").ast(block)),

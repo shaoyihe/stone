@@ -14,7 +14,7 @@ public class Fun extends ASTList {
     }
 
     public Parameters params() {
-        return (Parameters) ((ASTree) child(0)).child(0);
+        return (Parameters) child(0);
     }
 
     public BlockStmnt body() {
