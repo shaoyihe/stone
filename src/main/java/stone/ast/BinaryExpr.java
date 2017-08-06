@@ -31,7 +31,7 @@ public class BinaryExpr extends ASTList {
     public Object eval(Environment environment) {
         String operator = operator();
         if ("=".equals(operator)) {
-            return assign(environment);
+            return assign(environment, false);
         }
 
         Object left = left().eval(environment);
@@ -75,11 +75,15 @@ public class BinaryExpr extends ASTList {
      * @param environment
      * @return
      */
-    private Object assign(Environment environment) {
+    public Object assign(Environment environment, boolean isLocal) {
         if (left() instanceof Name) {
             Object right = right().eval(environment);
             String var = ((Name) left()).name();
-            environment.put(var, right);
+            if (isLocal) {
+                environment.putNew(var, right);
+            } else {
+                environment.put(var, right);
+            }
             return right;
         } else {
             throw new ParseException("require name but got " + left());

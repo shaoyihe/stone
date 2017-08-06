@@ -17,6 +17,18 @@ public class ClosureTest {
             Object result = asTree.eval(environment);
             System.err.println("=> " + result);
         }
+    }
+
+    @Test
+    public void localVarTest() throws Exception {
+        Lexer lexer = new Lexer(LexTest.class.getResource("local_var.txt").getFile());
+        BasicParser basicParser = new LocalVarParser();
+        Environment environment = new BasicEnvironment();
+        while (lexer.peek(0) != Token.EOF) {
+            ASTree asTree = basicParser.parse(lexer);
+            Object result = asTree.eval(environment);
+            System.err.println("=> " + result);
+        }
 
     }
 }
