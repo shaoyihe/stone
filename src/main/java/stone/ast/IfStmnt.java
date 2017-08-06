@@ -30,7 +30,8 @@ public class IfStmnt extends ASTList {
     public Object eval(Environment environment) {
         Object judge = condition().eval(environment);
         //非0判断即为真
-        if (judge instanceof Integer && 0 == (Integer) judge) {
+        if ((judge instanceof Boolean && judge == Boolean.FALSE) ||
+                (judge instanceof Long && 0 == (Long) judge)) {
             return elseBlock().eval(environment);
         } else {
             return thenBlock().eval(environment);

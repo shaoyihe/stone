@@ -174,7 +174,7 @@ public class Parser {
                     }
 
             if (tokens.length > 0)
-                throw new ParseException(tokens[0] + " expected.", t);
+                throw new ParseException(tokens[0] + " expected but got" + t);
             else
                 throw new ParseException(t);
         }
