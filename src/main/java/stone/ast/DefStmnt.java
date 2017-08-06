@@ -17,7 +17,7 @@ public class DefStmnt extends ASTList {
     }
 
     public Parameters params() {
-        return (Parameters) ((ParameterList) child(1)).child(0);
+        return (Parameters) ((ASTree) child(1)).child(0);
     }
 
     public BlockStmnt body() {
@@ -26,8 +26,7 @@ public class DefStmnt extends ASTList {
 
     @Override
     public Object eval(Environment environment) {
-        Func func = new Func(params(), body(), environment);
-        environment.putNew(operator(), func);
-        return func;
+        environment.putNew(operator(), new Func(params(), body(), environment));
+        return operator();
     }
 }

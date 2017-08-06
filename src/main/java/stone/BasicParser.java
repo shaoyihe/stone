@@ -14,7 +14,7 @@ public class BasicParser {
     HashSet<String> reserved = new HashSet<String>();
     Operators operators = new Operators();
     Parser expr0 = rule();
-    Parser primary = rule(PrimaryExpr.class)
+    protected Parser primary = rule(PrimaryExpr.class)
             .or(rule().sep("(").ast(expr0).sep(")"),
                     rule().number(NumberLiteral.class),
                     rule().identifier(Name.class, reserved),
@@ -24,7 +24,7 @@ public class BasicParser {
     Parser expr = expr0.expression(BinaryExpr.class, factor, operators);
 
     Parser statement0 = rule();
-    Parser block = rule(BlockStmnt.class)
+    protected Parser block = rule(BlockStmnt.class)
             .sep("{").option(statement0)
             .repeat(rule().sep(";", Token.EOL).option(statement0))
             .sep("}");
