@@ -1,5 +1,7 @@
 package stone.ast;
 
+import stone.Environment;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,6 +35,11 @@ public class ASTList extends ASTree {
             }
         }
         return null;
+    }
+
+    @Override
+    public Object eval(Environment environment) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

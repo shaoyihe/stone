@@ -1,5 +1,8 @@
 package stone.ast;
 
+import stone.Environment;
+import stone.ParseException;
+
 import java.util.List;
 
 /**
@@ -22,5 +25,65 @@ public class BinaryExpr extends ASTList {
 
     public ASTree right() {
         return child(2);
+    }
+
+    @Override
+    public Object eval(Environment environment) {
+        String operator = operator();
+        if ("=".equals(operator)) {
+            return assign(environment);
+        }
+
+        Object left = left().eval(environment);
+        Object right = right().eval(environment);
+        if (left instanceof Long && right instanceof Long) {
+            return compareInt((Long) left, (Long) right);
+        }
+
+        if ("+".equals(operator)) {
+            return String.valueOf(left) + String.valueOf(right);
+        }
+
+        throw new ParseException("unkown operator " + operator);
+    }
+
+    private Object compareInt(Long left, Long right) {
+        String operator = operator();
+        if ("==".equals(operator)) {
+            return left.equals(right);
+        } else if (">".equals(operator)) {
+            return left > right;
+        } else if ("<".equals(operator)) {
+            return left < right;
+        } else if ("+".equals(operator)) {
+            return left + right;
+        } else if ("-".equals(operator)) {
+            return left - right;
+        } else if ("%".equals(operator)) {
+            return left % right;
+        } else if ("*".equals(operator)) {
+            return left * right;
+        } else if ("/".equals(operator)) {
+            return left / right;
+        }
+        throw new ParseException("unkown operator " + operator);
+    }
+
+    /**
+     * 赋值操作，只有当左值是标志符时有效
+     *
+     * @param environment
+     * @return
+     */
+    private Object assign(Environment environment) {
+        if (left() instanceof Name) {
+            Object right = right().eval(environment);
+            String var = ((Name) left()).name();
+            environment.put(var, right);
+            return right;
+        } else {
+            throw new ParseException("require name but got " + left());
+        }
+
     }
 }

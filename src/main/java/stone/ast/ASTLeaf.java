@@ -1,5 +1,6 @@
 package stone.ast;
 
+import stone.Environment;
 import stone.Token;
 
 import java.util.Collections;
@@ -37,6 +38,11 @@ public class ASTLeaf extends ASTree {
     @Override
     public String location() {
         return token.toString();
+    }
+
+    @Override
+    public Object eval(Environment environment) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

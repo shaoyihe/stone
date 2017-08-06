@@ -1,5 +1,7 @@
 package stone.ast;
 
+import stone.Environment;
+import stone.ParseException;
 import stone.Token;
 
 /**
@@ -13,5 +15,14 @@ public class Name extends ASTLeaf {
 
     public String name() {
         return getToken().getText();
+    }
+
+    @Override
+    public Object eval(Environment environment) {
+        Object value = environment.get(name());
+        if (value == null) {
+            throw new ParseException("unkown var " + name());
+        }
+        return value;
     }
 }

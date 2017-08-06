@@ -92,6 +92,7 @@ public class Lexer extends ALog {
                     }
                     tokens.add(token);
                 }
+                tokens.add(new IDToken(Token.EOL, line.length(), lineNum));
 
             } catch (Exception e) {
                 throw new ParseException(e.toString());
