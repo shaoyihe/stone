@@ -30,7 +30,7 @@ public class Func {
     }
 
     public Environment makeEnv() {
-        return new BasicEnvironment(environment);
+        return BasicEnvironment.newEnv(environment);
     }
 
 

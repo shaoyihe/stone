@@ -10,11 +10,11 @@ public class BasicEnvironment implements Environment {
     private Map<String, Object> context = new HashMap<>();
     private Environment outer;
 
-    public BasicEnvironment(Environment outer) {
+    private BasicEnvironment(Environment outer) {
         this.outer = outer;
     }
 
-    public BasicEnvironment() {
+    private BasicEnvironment() {
 
     }
 
@@ -56,6 +56,16 @@ public class BasicEnvironment implements Environment {
             return null;
         }
         return outer.where(name);
+    }
+
+    public static BasicEnvironment newEnv() {
+        BasicEnvironment outer = new BasicEnvironment();
+        Natives.registerNative(outer);
+        return newEnv(outer);
+    }
+
+    public static BasicEnvironment newEnv(Environment environment) {
+        return new BasicEnvironment(environment);
     }
 
 }

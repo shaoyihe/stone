@@ -11,7 +11,7 @@ public class FuncTest {
     public void test() throws Exception {
         Lexer lexer = new Lexer(LexTest.class.getResource("test.txt").getFile());
         BasicParser basicParser = new FuncParser();
-        Environment environment = new BasicEnvironment();
+        Environment environment = BasicEnvironment.newEnv();
         while (lexer.peek(0) != Token.EOF) {
             ASTree asTree = basicParser.parse(lexer);
             Object result = asTree.eval(environment);

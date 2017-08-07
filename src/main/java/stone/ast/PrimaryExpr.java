@@ -27,6 +27,6 @@ public class PrimaryExpr extends ASTList {
         if (pos == 0) {
             return child(pos).eval(env);
         }
-        return ((Postfix) child(pos)).eval(env, target);
+        return ((Args) child(pos)).eval(env, target);
     }
 }
