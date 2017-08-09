@@ -24,4 +24,17 @@ public class ClassInfo {
         this.classDef = classDef;
         this.environment = environment;
     }
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public ClassInfo getSuperClass() {
+        return superClass;
+    }
+
+    public ClassBody body() {
+        return classDef.body();
+    }
+
 }

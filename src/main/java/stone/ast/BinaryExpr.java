@@ -85,6 +85,9 @@ public class BinaryExpr extends ASTList {
                 environment.put(var, right);
             }
             return right;
+        } else if (left() instanceof PrimaryExpr) {
+
+            return null;
         } else {
             throw new ParseException("require name but got " + left());
         }
