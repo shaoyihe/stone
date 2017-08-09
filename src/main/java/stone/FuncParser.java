@@ -16,7 +16,7 @@ public class FuncParser extends BasicParser {
     protected Parser paramList = rule().sep("(").maybe(params).sep(")");
     Parser def = rule(DefStmnt.class).sep("def").identifier(reserved).ast(paramList).ast(block);
     Parser args = rule(Args.class).ast(expr).repeat(rule().sep(",").ast(expr));
-    Parser postfix = rule().sep("(").maybe(args).sep(")");
+    protected Parser postfix = rule().sep("(").maybe(args).sep(")");
 
     public FuncParser() {
         super();

@@ -54,4 +54,7 @@ public class ASTLeaf extends ASTree {
         return token;
     }
 
+    public String text() {
+        return token.getText();
+    }
 }
