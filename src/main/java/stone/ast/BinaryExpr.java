@@ -76,20 +76,24 @@ public class BinaryExpr extends ASTList {
      * @return
      */
     public Object assign(Environment environment, boolean isLocal) {
-        if (left() instanceof Name) {
+        ASTree left = left();
+        if (left instanceof Name) {
             Object right = right().eval(environment);
-            String var = ((Name) left()).name();
+            String var = ((Name) left).name();
             if (isLocal) {
                 environment.putNew(var, right);
             } else {
                 environment.put(var, right);
             }
             return right;
-        } else if (left() instanceof PrimaryExpr) {
-
-            return null;
+        } else if (left instanceof PrimaryExpr) {
+            if (left.child(left.numChildren() - 1) instanceof Dot) {
+                return ((PrimaryExpr) left).evalAssign(environment, right().eval(environment));
+            } else {
+                throw new ParseException("illegal assign");
+            }
         } else {
-            throw new ParseException("require name but got " + left());
+            throw new ParseException("require name but got " + left);
         }
 
     }

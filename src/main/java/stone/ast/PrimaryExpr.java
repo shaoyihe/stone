@@ -25,6 +25,25 @@ public class PrimaryExpr extends ASTList {
         return target;
     }
 
+
+    /**
+     * 写入对象余值
+     * @param environment
+     * @param rVal
+     * @return
+     */
+    public Object evalAssign(Environment environment, Object rVal) {
+        Object target = null;
+        for (int pos = 0; pos < numChildren() - 1; ++pos) {
+            target = eval(environment, pos, target);
+        }
+        if (target instanceof StoneObject) {
+            return ((StoneObject) target).write(((Dot) child(numChildren() - 1)).name(), rVal);
+        }
+        throw new ParseException("illegal assign with tar " + target);
+    }
+
+
     private Object eval(Environment env, int pos, Object target) {
         ASTree child = child(pos);
         if (pos == 0) {

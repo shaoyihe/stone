@@ -24,8 +24,9 @@ public class StoneObject {
         return getEnv(member).get(member);
     }
 
-    public void write(String member, Object value) {
+    public Object write(String member, Object value) {
         getEnv(member).putNew(member, value);
+        return value;
     }
 
     private Environment getEnv(String member) {
