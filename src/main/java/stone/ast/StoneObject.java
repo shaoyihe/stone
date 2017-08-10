@@ -34,6 +34,6 @@ public class StoneObject {
         if (e != null && e == env)
             return e;
         else
-            throw new RuntimeException(new AccessException());
+            throw new RuntimeException(member + " not exist in " + this);
     }
 }

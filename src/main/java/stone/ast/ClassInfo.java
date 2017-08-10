@@ -18,7 +18,7 @@ public class ClassInfo {
             if (superClass instanceof ClassInfo) {
                 this.superClass = (ClassInfo) superClass;
             } else {
-                throw new ParseException(" illegal super class " + superClassName + " with object " + superClass);
+                throw new ParseException("illegal super class " + superClassName + " with object " + superClass);
             }
         }
         this.classDef = classDef;
