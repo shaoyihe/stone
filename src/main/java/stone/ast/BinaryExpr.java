@@ -87,7 +87,8 @@ public class BinaryExpr extends ASTList {
             }
             return right;
         } else if (left instanceof PrimaryExpr) {
-            if (left.child(left.numChildren() - 1) instanceof Dot) {
+            ASTree mostRightTree = left.child(left.numChildren() - 1);
+            if (mostRightTree instanceof Dot || mostRightTree instanceof ArrayRef) {
                 return ((PrimaryExpr) left).evalAssign(environment, right().eval(environment));
             } else {
                 throw new ParseException("illegal assign");

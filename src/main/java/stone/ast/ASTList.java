@@ -1,7 +1,6 @@
 package stone.ast;
 
 import stone.Environment;
-import stone.ParseException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -19,9 +18,6 @@ public class ASTList extends ASTree {
 
     @Override
     public ASTree child(int pos) {
-        if (pos == 1 && children.size() == 1) {
-            throw new ParseException(this.getClass() + ";" + toString());
-        }
         return children.get(pos);
     }
 

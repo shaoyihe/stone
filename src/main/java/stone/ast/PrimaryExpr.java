@@ -28,6 +28,7 @@ public class PrimaryExpr extends ASTList {
 
     /**
      * 写入对象余值
+     *
      * @param environment
      * @param rVal
      * @return
@@ -37,10 +38,26 @@ public class PrimaryExpr extends ASTList {
         for (int pos = 0; pos < numChildren() - 1; ++pos) {
             target = eval(environment, pos, target);
         }
-        if (target instanceof StoneObject) {
-            return ((StoneObject) target).write(((Dot) child(numChildren() - 1)).name(), rVal);
+        ASTree mostRightTree = child(numChildren() - 1);
+        if (mostRightTree instanceof Dot) {
+            if (target instanceof StoneObject) {
+                return ((StoneObject) target).write(((Dot) mostRightTree).name(), rVal);
+            }
+            throw new ParseException("illegal assign with tar " + target);
+        } else {
+            //ArrayRef
+            if (target instanceof Object[]) {
+                Object index = mostRightTree.eval(environment);
+                if (index instanceof Long) {
+                    return ((Object[]) target)[((Long) index).intValue()] = rVal;
+                } else {
+                    throw new ParseException("require int but got " + index);
+                }
+            } else {
+                throw new ParseException("require object[] but got " + target);
+            }
         }
-        throw new ParseException("illegal assign with tar " + target);
+
     }
 
 
@@ -66,6 +83,18 @@ public class PrimaryExpr extends ASTList {
                 return ((StoneObject) target).read(method);
             } else {
                 throw new ParseException("require StoneObject but got " + target);
+            }
+        } else if (child instanceof ArrayRef) {
+            //取数组索引
+            if (target instanceof Object[]) {
+                Object index = child.eval(env);
+                if (index instanceof Long) {
+                    return ((Object[]) target)[((Long) index).intValue()];
+                } else {
+                    throw new ParseException("require int but got " + index);
+                }
+            } else {
+                throw new ParseException("require object[] but got " + target);
             }
         }
         return ((Args) child).eval(env, target);
