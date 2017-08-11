@@ -1,0 +1,7 @@
+x = 1
+def write_t () {
+    var x = 10
+    x + 10
+}
+write_t()
+x

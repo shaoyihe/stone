@@ -15,7 +15,7 @@ public class IDToken extends Token {
 
 
     @Override
-    public boolean isIdentity() {
+    public boolean isIdentifier() {
         return true;
     }
 
@@ -27,7 +27,7 @@ public class IDToken extends Token {
     @Override
     public String toString() {
         return "IDToken{" +
-                "str=" + text + super.toString() +
+                "str=" + text +" "+ super.toString() +
                 '}';
     }
 }

@@ -20,7 +20,7 @@ public class Lexer extends ALog {
      * "[^"]*" : 字符串
      * \w[\w\d]*|\p{Punct} : 变量|操作符
      */
-    public static final Pattern TOKEN_REGEX = Pattern.compile("\\s*((//.*)|(\\d+)|(\"[^\"]*\")|(\\w[\\w\\d]*|\\p{Punct}))");
+    public static final Pattern TOKEN_REGEX = Pattern.compile("\\s*((//.*)|(\\d+)|(\"[^\"]*\")|(\\w[\\w\\d]*|==|&&|\\|\\||\\p{Punct}))");
 
 
     private final List<Token> tokens;
@@ -38,7 +38,7 @@ public class Lexer extends ALog {
 
     public Token read() {
         Token token = readOn(0);
-        if (token != Token.END) {
+        if (token != Token.EOF) {
             tokens.remove(0);
         }
         return token;
@@ -51,7 +51,7 @@ public class Lexer extends ALog {
     public Token readOn(int pos) {
         while (tokens.size() <= pos) {
             if (end) {
-                return Token.END;
+                return Token.EOF;
             }
             try {
                 String line = lineNumberReader.readLine();
@@ -63,39 +63,39 @@ public class Lexer extends ALog {
                 int lineNum = lineNumberReader.getLineNumber();
                 Matcher matcher = TOKEN_REGEX.matcher(line);
                 while (matcher.find()) {
-                    int column = matcher.start();
                     String comment = matcher.group(2);
                     if (comment != null) {
-                        log.debug(lineNum + " " + column + " " + comment);
+                        log.debug(lineNum + " " + matcher.start() + " " + comment);
                         continue;
                     }
                     Token token;
                     String number = matcher.group(3);
                     if (number != null) {
-                        token = new NumberToken(Long.valueOf(number), column, lineNum);
+                        token = new NumberToken(Long.valueOf(number), matcher.start(), lineNum);
                     } else {
                         String str = matcher.group(4);
                         if (str != null) {
-                            token = new StrToken(str, column, lineNum);
+                            token = new StrToken(str, matcher.start(), lineNum);
                         } else {
                             String id = matcher.group(5);
                             if (id != null) {
-                                token = new IDToken(id, column, lineNum);
+                                token = new IDToken(id, matcher.start(), lineNum);
                             } else {
-                                throw new ParseException("column[" + column + "],lineNum[" + lineNum + "]");
+                                throw new ParseException("error");
                             }
                         }
                     }
                     if (token.isNumber()) {
-                        log.debug(lineNum + " " + column + " " + token.getNumber());
+                        log.debug(lineNum + " " + matcher.start() + " " + token.getNumber());
                     } else {
-                        log.debug(lineNum + " " + column + " " + token.getText());
+                        log.debug(lineNum + " " + matcher.start() + " " + token.getText());
                     }
                     tokens.add(token);
                 }
+                tokens.add(new IDToken(Token.EOL, line.length(), lineNum));
 
             } catch (Exception e) {
-                throw new ParseException("", e);
+                throw new ParseException(e.toString());
             }
 
         }

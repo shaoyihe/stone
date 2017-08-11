@@ -14,7 +14,7 @@ public class StrToken extends Token {
     }
 
     @Override
-    public boolean isStr() {
+    public boolean isString() {
         return true;
     }
 
@@ -26,7 +26,7 @@ public class StrToken extends Token {
     @Override
     public String toString() {
         return "StrToken{" +
-                "str=" + str + super.toString() +
+                "str=" + str + " " + super.toString() +
                 '}';
     }
 }

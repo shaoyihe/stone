@@ -1,14 +1,14 @@
 package stone;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * token词
  * on 2017/7/31.
  */
 public abstract class Token {
-    public static Token END = new Token(-1, -1) {
+    public static Token EOF = new Token(-1, -1) {
     };
+
+    public static final String EOL = "\\n";
 
     protected int lineNum;
     protected int columnNum;
@@ -19,30 +19,30 @@ public abstract class Token {
     }
 
     public long getNumber() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public String getText() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public boolean isNumber() {
         return false;
     }
 
-    public boolean isIdentity() {
+    public boolean isIdentifier() {
         return false;
     }
 
-    public boolean isStr() {
+    public boolean isString() {
         return false;
     }
 
     @Override
     public String toString() {
         return "Token{" +
-                "columnNum=" + columnNum +
-                ", lineNum=" + lineNum +
+                "lineNum=" + lineNum +
+                ", columnNum=" + columnNum +
                 '}';
     }
 }

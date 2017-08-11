@@ -25,9 +25,14 @@ public class NumberToken extends Token {
     }
 
     @Override
+    public String getText() {
+        return String.valueOf(number);
+    }
+
+    @Override
     public String toString() {
         return "NumberToken{" +
-                "number=" + number + super.toString() +
+                "number=" + number + " " + super.toString() +
                 '}';
     }
 }
