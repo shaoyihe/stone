@@ -12,7 +12,7 @@ public class DefStmnt extends ASTList {
         super(children);
     }
 
-    public String operator() {
+    public String name() {
         return ((ASTLeaf) child(0)).getToken().getText();
     }
 
@@ -26,7 +26,7 @@ public class DefStmnt extends ASTList {
 
     @Override
     public Object eval(Environment environment) {
-        environment.putNew(operator(), new Func(params(), body(), environment));
-        return operator();
+        environment.putNew(name(), new Func(params(), body(), environment));
+        return name();
     }
 }
