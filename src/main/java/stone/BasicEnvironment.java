@@ -1,5 +1,7 @@
 package stone;
 
+import stone.ast.Symbols;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +58,21 @@ public class BasicEnvironment implements Environment {
             return null;
         }
         return outer.where(name);
+    }
+
+    @Override
+    public Symbols symbols() {
+        return null;
+    }
+
+    @Override
+    public void put(int nest, int index, Object value) {
+
+    }
+
+    @Override
+    public Object get(int nest, int index) {
+        return null;
     }
 
     public static BasicEnvironment newEnv() {

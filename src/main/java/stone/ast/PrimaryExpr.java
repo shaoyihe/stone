@@ -71,7 +71,7 @@ public class PrimaryExpr extends ASTList {
             String method = dot.name();
             if ("new".equals(method)) {
                 if (target instanceof ClassInfo) {
-                    Environment nest = BasicEnvironment.newEnv(((ClassInfo) target).getEnvironment());
+                    Environment nest = ResizableArrayEnv.newEnv(((ClassInfo) target).getEnvironment());
                     StoneObject so = new StoneObject(nest);
                     nest.putNew("this", so);
                     initObject((ClassInfo) target, nest);

@@ -60,4 +60,11 @@ public class ASTList extends ASTree {
     public int numChildren() {
         return children.size();
     }
+
+    @Override
+    public void lookup(Symbols syms) {
+        for (ASTree asTree : this) {
+            asTree.lookup(syms);
+        }
+    }
 }

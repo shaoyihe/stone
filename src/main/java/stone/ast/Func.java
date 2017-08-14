@@ -9,7 +9,7 @@ import stone.Environment;
 public class Func {
     private Parameters parameters;
     private BlockStmnt body;
-    private Environment environment;
+    protected Environment environment;
 
     public Func(Parameters parameters, BlockStmnt body, Environment environment) {
         this.body = body;

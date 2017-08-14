@@ -79,12 +79,13 @@ public class BinaryExpr extends ASTList {
         ASTree left = left();
         if (left instanceof Name) {
             Object right = right().eval(environment);
-            String var = ((Name) left).name();
-            if (isLocal) {
-                environment.putNew(var, right);
-            } else {
-                environment.put(var, right);
-            }
+//            String var = ((Name) left).name();
+//            if (isLocal) {
+//                environment.putNew(var, right);
+//            } else {
+//                environment.put(var, right);
+//            }
+            ((Name) left).evalForAssign(environment, right);
             return right;
         } else if (left instanceof PrimaryExpr) {
             ASTree mostRightTree = left.child(left.numChildren() - 1);
@@ -97,5 +98,19 @@ public class BinaryExpr extends ASTList {
             throw new ParseException("require name but got " + left);
         }
 
+    }
+
+    @Override
+    public void lookup(Symbols syms) {
+        ASTree left = left();
+        if ("=".equals(operator())) {
+            if (left instanceof Name) {
+                ((Name) left).lookupForAssign(syms);
+                right().lookup(syms);
+                return;
+            }
+        }
+        left.lookup(syms);
+        right().lookup(syms);
     }
 }

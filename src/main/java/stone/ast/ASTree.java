@@ -23,9 +23,13 @@ public abstract class ASTree implements Iterable<ASTree> {
 
     /**
      * 执行变量
+     *
      * @param environment
      * @return
      */
     public abstract Object eval(Environment environment);
+
+    public void lookup(Symbols syms) {
+    }
 
 }
