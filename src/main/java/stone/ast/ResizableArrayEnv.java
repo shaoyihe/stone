@@ -1,6 +1,7 @@
 package stone.ast;
 
 import stone.Environment;
+import stone.Natives;
 
 import java.util.Arrays;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 public class ResizableArrayEnv extends ArrayEnv {
     protected Symbols names;
 
-    public ResizableArrayEnv() {
+    private ResizableArrayEnv() {
         super(10, null);
         names = new Symbols();
     }
@@ -73,7 +74,15 @@ public class ResizableArrayEnv extends ArrayEnv {
         values[index] = value;
     }
 
-    public static Environment newEnv(Environment environment) {
-        return null;
+    public static ResizableArrayEnv newEnv(Environment environment) {
+        ResizableArrayEnv resizableArrayEnv = new ResizableArrayEnv();
+        resizableArrayEnv.setOuter(environment);
+        return resizableArrayEnv;
+    }
+
+    public static ResizableArrayEnv newEnv() {
+        ResizableArrayEnv resizableArrayEnv = new ResizableArrayEnv();
+        Natives.registerNative(resizableArrayEnv);
+        return resizableArrayEnv;
     }
 }

@@ -33,17 +33,17 @@ public class Args extends ASTList {
         }
 
 
-        if (!(func instanceof Func)) {
-            throw new ParseException("require fun but got " + func);
+        if (!(func instanceof OptFunction)) {
+            throw new ParseException("require OptFunction but got " + func);
         }
 
-        Func f = (Func) func;
+        Func f = (OptFunction) func;
         if (f.getParameters().size() != numChildren()) {
             throw new ParseException("size not equal");
         }
         Environment newEnv = f.makeEnv();
         for (int i = 0; i < numChildren(); ++i) {
-            newEnv.putNew(f.getParameters().name(i), child(i).eval(callEnv));
+            f.getParameters().eval(newEnv, i, child(i).eval(callEnv));
         }
         return ((Func) func).getBody().eval(newEnv);
     }
